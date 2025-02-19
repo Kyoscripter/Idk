@@ -1843,11 +1843,11 @@ local abs = math.abs
           })
 
           return textbox
-     end)
+     end
     
        function section:Textbox(properties)
           return library:create_textbox(properties)
-    end) 
+    end
 
                 local button = library:create("TextButton", {
                     Parent = button_inline,
