@@ -722,131 +722,85 @@ local abs = math.abs
                     end 
                 end)
             -- 
-function library:create_textbox(properties)
-    -- إنشاء الإطار الخارجي لـ TextBox
-    local textbox_frame = self:create("Frame", {
-        Parent = properties.Parent,
-        Name = "TextboxFrame",
-        Size = properties.Size or UDim2.new(0, 200, 0, 30), -- الحجم الافتراضي
-        BackgroundColor3 = themes.preset.contrast, -- لون الخلفية
-        BorderColor3 = themes.preset.outline, -- لون الحدود
-        BorderSizePixel = 1, -- سمك الحدود
-    })
 
-function library:create_textbox(properties)
-    -- إنشاء الإطار الخارجي لـ TextBox
-    local textbox_frame = self:create("Frame", {
-        Parent = properties.Parent,
-        Name = "TextboxFrame",
-        Size = properties.Size or UDim2.new(0, 200, 0, 30), -- الحجم الافتراضي
-        BackgroundColor3 = themes.preset.contrast, -- لون الخلفية
-        BorderColor3 = themes.preset.outline, -- لون الحدود
-        BorderSizePixel = 1, -- سمك الحدود
-    })
+            -- esp preview
+                local esp_preview = library:create("Frame", {
+                    Parent = library.gui,
+                    Name = "",
+                    Visible = false, 
+                    Active = true, 
+                    Draggable = true, 
+                    Position = UDim2.new(0, inline1.AbsolutePosition.X + inline1.AbsoluteSize.X + 8, 0, inline1.AbsolutePosition.Y + 1), 
+                    BorderColor3 = Color3.fromRGB(8, 8, 8),
+                    Size = UDim2.new(0, 328, 0, 376),
+                    BackgroundColor3 = Color3.fromRGB(56, 56, 56)
+                }) library:make_resizable(esp_preview)
 
-    -- إنشاء TextBox داخل الإطار
-    local textbox = self:create("TextBox", {
-        Parent = textbox_frame,
-        Name = "Textbox",
-        Size = UDim2.new(1, -10, 1, -10), -- حجم TextBox داخل الإطار
-        Position = UDim2.new(0, 5, 0, 5), -- موضع TextBox داخل الإطار
-        BackgroundColor3 = themes.preset.inline, -- لون خلفية TextBox
-        BorderColor3 = themes.preset.outline, -- لون حدود TextBox
-        TextColor3 = Color3.fromRGB(255, 255, 255), -- لون النص
-        Text = properties.Text or "", -- النص الافتراضي
-        PlaceholderText = properties.PlaceholderText or "Type here...", -- النص البديل
-        TextSize = properties.TextSize or 14, -- حجم النص
-        ClearTextOnFocus = properties.ClearTextOnFocus or false, -- مسح النص عند التركيز
-    })
+                local name = library:create("TextLabel", {
+                    Parent = esp_preview,
+                    Name = "",
+                    FontFace = library.font,
+                    TextColor3 = Color3.fromRGB(170, 170, 170),
+                    BorderColor3 = Color3.fromRGB(0, 0, 0),
+                    Text = "esp preview",
+                    TextStrokeTransparency = 0.5,
+                    BorderSizePixel = 0,
+                    BackgroundTransparency = 1,
+                    Position = UDim2.new(0, 0, 0, -1),
+                    Size = UDim2.new(1, 0, 0, 1),
+                    ZIndex = 2,
+                    TextSize = 12,
+                    BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                })
 
-    -- إرجاع TextBox للاستخدام لاحقًا
-    return textbox
-end
+                local UIPadding = library:create("UIPadding", {
+                    Parent = name,
+                    Name = ""
+                })
 
--- إضافة الدالة إلى الكائن section
-function section:Textbox(properties)
-    return library:create_textbox(properties)
-end
+                local main = library:create("Frame", {
+                    Parent = esp_preview,
+                    Name = "",
+                    Position = UDim2.new(0, 4, 0, 4),
+                    BorderColor3 = Color3.fromRGB(26, 26, 26),
+                    Size = UDim2.new(1, -8, 1, -8),
+                    BorderSizePixel = 2,
+                    BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+                })
 
--- esp preview
-local esp_preview = library:create("Frame", {
-    Parent = library.gui,
-    Name = "EspPreview", -- اسم مميز
-    Visible = false, 
-    Active = true, 
-    Draggable = true, 
-    Position = UDim2.new(0, inline1.AbsolutePosition.X + inline1.AbsoluteSize.X + 8, 0, inline1.AbsolutePosition.Y + 1), 
-    BorderColor3 = Color3.fromRGB(8, 8, 8),
-    Size = UDim2.new(0, 328, 0, 376),
-    BackgroundColor3 = Color3.fromRGB(56, 56, 56)
-}) 
-library:make_resizable(esp_preview)
+                library:create("UIStroke", {
+                    Parent = main,
+                    Name = "",
+                    Color = Color3.fromRGB(57, 57, 57),
+                    LineJoinMode = Enum.LineJoinMode.Miter
+                })
 
-local name = library:create("TextLabel", {
-    Parent = esp_preview,
-    Name = "EspPreviewTitle", -- اسم مميز
-    FontFace = library.font,
-    TextColor3 = Color3.fromRGB(170, 170, 170),
-    BorderColor3 = Color3.fromRGB(0, 0, 0),
-    Text = "ESP Preview",
-    TextStrokeTransparency = 0.5,
-    BorderSizePixel = 0,
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 0, 0, -1),
-    Size = UDim2.new(1, 0, 0, 20), -- تعديل حجم النص
-    ZIndex = 2,
-    TextSize = 12,
-    BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-})
+                local tabs = library:create("Frame", {
+                    Parent = main,
+                    Name = "",
+                    Position = UDim2.new(0, 8, 0, 8),
+                    BorderColor3 = Color3.fromRGB(8, 8, 8),
+                    Size = UDim2.new(1, -16, 1, -16),
+                    BorderSizePixel = 2,
+                    BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+                })
 
-local UIPadding = library:create("UIPadding", {
-    Parent = name,
-    Name = "TitlePadding" -- اسم مميز
-})
+                library:create("UIStroke", {
+                    Parent = tabs,
+                    Name = "",
+                    Color = Color3.fromRGB(57, 57, 57),
+                    LineJoinMode = Enum.LineJoinMode.Miter
+                })
 
-local main = library:create("Frame", {
-    Parent = esp_preview,
-    Name = "MainFrame", -- اسم مميز
-    Position = UDim2.new(0, 4, 0, 4),
-    BorderColor3 = Color3.fromRGB(26, 26, 26),
-    Size = UDim2.new(1, -8, 1, -8),
-    BorderSizePixel = 2,
-    BackgroundColor3 = Color3.fromRGB(26, 26, 26)
-})
-
-library:create("UIStroke", {
-    Parent = main,
-    Name = "MainStroke", -- اسم مميز
-    Color = Color3.fromRGB(57, 57, 57),
-    LineJoinMode = Enum.LineJoinMode.Miter
-})
-
-local tabs = library:create("Frame", {
-    Parent = main,
-    Name = "TabsFrame", -- اسم مميز
-    Position = UDim2.new(0, 8, 0, 8),
-    BorderColor3 = Color3.fromRGB(8, 8, 8),
-    Size = UDim2.new(1, -16, 1, -16),
-    BorderSizePixel = 2,
-    BackgroundColor3 = Color3.fromRGB(22, 22, 22)
-})
-
-library:create("UIStroke", {
-    Parent = tabs,
-    Name = "TabsStroke", -- اسم مميز
-    Color = Color3.fromRGB(57, 57, 57),
-    LineJoinMode = Enum.LineJoinMode.Miter
-})
-
-local hitpart = library:create("Frame", {
-    Parent = tabs,
-    Name = "HitPartFrame", -- اسم مميز
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 2, 0, 20),
-    BorderColor3 = Color3.fromRGB(56, 56, 56),
-    Size = UDim2.new(1, -4, 1, -4),
-    BackgroundColor3 = Color3.fromRGB(22, 22, 22)
-})
+                local hitpart = library:create("Frame", {
+                    Parent = tabs,
+                    Name = "",
+                    BackgroundTransparency = 1,
+                    Position = UDim2.new(0, 2, 0, 20),
+                    BorderColor3 = Color3.fromRGB(56, 56, 56),
+                    Size = UDim2.new(1, -4, 1, -4),
+                    BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+                })
 
                 local head = library:create("Frame", {
                     Parent = hitpart,
@@ -1824,7 +1778,8 @@ local hitpart = library:create("Frame", {
                     player_buttons[selected_player.Name].priority.Text = "Neutral"
                     player_buttons[selected_player.Name].priority.TextColor3 = rgb(180, 180, 180)
                 end)
-                
+               
+                  
                 local button_inline = library:create("Frame", {
                     Parent = Frame,
                     Name = "",
@@ -1863,7 +1818,37 @@ local hitpart = library:create("Frame", {
                     BorderSizePixel = 0,
                     BackgroundColor3 = Color3.fromRGB(8, 8, 8)
                 })
-                
+               
+              local textbox_frame = library:create("Frame", {
+                Parent = properties.Parent,
+                Name = "TextboxFrame",
+                 Size = properties.Size or UDim2.new(0, 200, 0, 30), -- الحجم الافتراضي
+                BackgroundColor3 = themes.preset.contrast, -- لون الخلفية
+                BorderColor3 = themes.preset.outline, -- لون الحدود
+               BorderSizePixel = 1, -- سمك الحدود
+             })
+ 
+              local textbox = library:create("TextBox", {
+                 Parent = textbox_frame,
+                 Name = "Textbox",
+                  Size = UDim2.new(1, -10, 1, -10), -- حجم TextBox داخل الإطار
+               Position = UDim2.new(0, 5, 0, 5), -- موضع TextBox داخل الإطار
+             BackgroundColor3 = themes.preset.inline, -- لون خلفية TextBox
+             BorderColor3 = themes.preset.outline, -- لون حدود TextBox
+             TextColor3 = Color3.fromRGB(255, 255, 255), -- لون النص
+             Text = properties.Text or "", -- النص الافتراضي
+            PlaceholderText = properties.PlaceholderText or "Type here...", -- النص البديل
+           TextSize = properties.TextSize or 14, -- حجم النص
+           ClearTextOnFocus = properties.ClearTextOnFocus or false, -- مسح النص عند التركيز
+          })
+
+          return textbox
+     end)
+    
+       function section:Textbox(properties)
+          return library:create_textbox(properties)
+    end) 
+
                 local button = library:create("TextButton", {
                     Parent = button_inline,
                     Name = "",
